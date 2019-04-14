@@ -22,7 +22,9 @@
  *    'Sun, 17 May 1998 03:00:00 GMT+01' => Date()
  */
 function parseDataFromRfc2822(value) {
-   throw new Error('Not implemented');
+   // throw new Error('Not implemented');
+   return new Date(value);
+
 }
 
 /**
@@ -37,7 +39,8 @@ function parseDataFromRfc2822(value) {
  *    '2016-01-19T08:07:37Z' => Date()
  */
 function parseDataFromIso8601(value) {
-   throw new Error('Not implemented');
+   // throw new Error('Not implemented');
+   return new Date(value);
 }
 
 
@@ -56,7 +59,8 @@ function parseDataFromIso8601(value) {
  *    Date(2015,1,1)    => false
  */
 function isLeapYear(date) {
-   throw new Error('Not implemented');
+   // throw new Error('Not implemented');
+   return date.getUTCFullYear() % 4 !== 0 ? false : date.getUTCFullYear() % 100 !== 0 ? true : date.getUTCFullYear() % 400 !== 0 ? false : true;
 }
 
 
@@ -76,7 +80,17 @@ function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
 function timeSpanToString(startDate, endDate) {
-   throw new Error('Not implemented');
+   // throw new Error('Not implemented');
+   const time = endDate - startDate;
+   let milliseconds = parseInt((time % 1000));
+   let seconds = parseInt((time / 1000) % 60);
+   let minutes = parseInt((time / (1000 * 60)) % 60);
+   let hours = parseInt((time / (1000 * 60 * 60)) % 24);
+   hours = (hours < 10) ? "0" + hours : hours;
+   minutes = (minutes < 10) ? "0" + minutes : minutes;
+   seconds = (seconds < 10) ? "0" + seconds : seconds;
+   milliseconds = (milliseconds < 100) ? "00" + milliseconds : milliseconds;
+   return hours + ":" + minutes + ":" + seconds + "." + milliseconds;
 }
 
 
@@ -94,14 +108,19 @@ function timeSpanToString(startDate, endDate) {
  *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
  */
 function angleBetweenClockHands(date) {
-    throw new Error('Not implemented');
+   // throw new Error('Not implemented');
+   let hours = date.getUTCHours();
+   let minutes = date.getUTCMinutes();
+   console.log((0.5 * (60 * hours + minutes)) - (6 * minutes));
+   console.log(Math.acos((0.5 * (60 * hours + minutes)) - (6 * minutes)));
+   return (0.5 * (60 * hours + minutes)) - (6 * minutes);
 }
 
 
 module.exports = {
-    parseDataFromRfc2822: parseDataFromRfc2822,
-    parseDataFromIso8601: parseDataFromIso8601,
-    isLeapYear: isLeapYear,
-    timeSpanToString: timeSpanToString,
-    angleBetweenClockHands: angleBetweenClockHands
+   parseDataFromRfc2822: parseDataFromRfc2822,
+   parseDataFromIso8601: parseDataFromIso8601,
+   isLeapYear: isLeapYear,
+   timeSpanToString: timeSpanToString,
+   angleBetweenClockHands: angleBetweenClockHands
 };

@@ -50,7 +50,6 @@ function getPowerFunction(exponent) {
     throw new Error('Not implemented');
 }
 
-
 /**
  * Returns the polynom function of one argument based on specified coefficients.
  * See: https://en.wikipedia.org/wiki/Polynomial#Definition
